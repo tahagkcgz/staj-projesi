@@ -1,59 +1,82 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import TeamView from '../views/TeamView.vue'
-import AboutView from '../views/AboutView.vue'
-import ContactView from '../views/ContactView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import LoginView from '../views/LoginView.vue'
-import UserView from '../views/UserView.vue'
-import LogoutView from '../views/LogoutView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: () => import('@/views/HomeView.vue'),
+    text: 'Ana Sayfa'
   },
   {
     path: '/about',
     name: 'about',
-    component: AboutView
+    component: () => import('@/views/AboutView.vue'),
+    text: 'Hakkımızda'
   },
   {
     path: '/team',
     name: 'team',
-    component: TeamView
+    component: () => import('@/views/TeamView.vue'),
+    text: 'Takımımız'
   },
   {
     path: '/contact',
     name: 'contact',
-    component: ContactView
+    component: () => import('@/views/ContactView.vue'),
+    text: 'Bize Ulaşın'
   },
   {
     path: '/register',
     name: 'register',
-    component: RegisterView
+    component: () => import('@/views/RegisterView.vue'),
+    text: 'Kayıt Olun'
   },
   {
     path: '/login',
     name: 'login',
-    component: LoginView
+    component: () => import('@/views/LoginView.vue'),
+    text: 'Giriş Yapın'
   },
   {
-    path: '/user',
+    path: '/admin-login',
+    name: 'admin-login',
+    component: () => import('@/views/AdminloginView.vue'),
+    text: 'Admin Girişi'
+  },
+  {
+    path: '/user/:name',
     name: 'user',
-    component: UserView
+    component: () => import('@/views/UserView.vue'),
+    text: 'Hesabım'
   },
   {
     path: '/logout',
     name: 'logout',
-    component: LogoutView
+    component: () => import('@/views/LogoutView.vue'),
+    text: 'Çıkış Yapın'
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    meta: {
+      requiresAdmin: true
+    },
+    component: () => import('@/views/AdminView.vue'),
+    text: 'Yönetim Paneli',
+    children: [
+      {
+        path: 'team',
+        name: 'manage-team',
+        component: () => import('@/views/AdminTeam.vue')
+      }
+    ]
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes: routes
 })
 
 export default router
+export { routes }

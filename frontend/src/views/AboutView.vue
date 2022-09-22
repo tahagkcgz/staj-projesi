@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    <TopBar></TopBar>
+    <NavBar></NavBar>
     <div class="about wow fadeInUp" data-wow-delay="0.1s">
       <div class="container">
         <div class="row align-items-center">
@@ -41,14 +43,18 @@
 </template>
 
 <script>
-import Footer from '../components/Footer-comp.vue'
+import NavBar from '../components/NavBar.vue'
+import TopBar from '../components/TopBar.vue'
+import Footer from '../components/FooterComp.vue'
 export default {
-  name: 'AboutView',
+  name: 'about-view',
   components: {
-    Footer
+    Footer,
+    TopBar,
+    NavBar
   },
   mounted () {
-    document.title = 'Hakkımızda - Ata ERP'
+    document.title = 'Hakkımızda - Teknik ERP'
   }
 }
 </script>

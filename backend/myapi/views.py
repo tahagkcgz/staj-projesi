@@ -1,7 +1,8 @@
-from rest_framework.response import Response
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets, response
 from rest_framework_simplejwt import authentication
 from django.contrib.auth import get_user_model
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseRedirect
 from .models import TeamMember
 from .serializers import TeamMemberSerializer, UserSerializer
 
@@ -23,10 +24,21 @@ class UserDetail(generics.RetrieveAPIView):
         return self.request.user
 
 
-class TeamMemberView(generics.RetrieveAPIView):
-    queryset = TeamMember.objects.all()
+class TeamMemberView(viewsets.ModelViewSet):
+    queryset = TeamMember.objects.all().order_by('id')
+    serializer_class = TeamMemberSerializer
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = TeamMemberSerializer(queryset, many=True)
-        return Response(serializer.data)
+
+@csrf_exempt
+def team_refresh(request):
+    i = 1
+    team = TeamMember.objects.all()
+    for member in team:
+        member.id = i
+        i = i + 1
+        member.save()
+    reverse_query = TeamMember.objects.order_by('-pk')
+    if reverse_query[0].name == reverse_query[1].name:
+        reverse_query[0].delete()
+    team.all()
+    return HttpResponseRedirect('http://localhost:8080/admin')

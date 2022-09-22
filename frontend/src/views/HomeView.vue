@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    <TopBar></TopBar>
+    <NavBar></NavBar>
     <div id="homecarousel" class="carousel slide" data-ride="carousel">
       <ol class="carousel-indicators">
         <li data-target="#homecarousel" data-slide-to="0" class="active"></li>
@@ -52,14 +54,18 @@
 </template>
 
 <script>
-import Footer from '../components/Footer-comp.vue'
+import NavBar from '../components/NavBar.vue'
+import TopBar from '../components/TopBar.vue'
+import Footer from '../components/FooterComp.vue'
 export default {
-  name: 'HomeView',
+  name: 'home-view',
   components: {
-    Footer
+    Footer,
+    TopBar,
+    NavBar
   },
   mounted () {
-    document.title = 'Ana Sayfa - Ata ERP'
+    document.title = 'Ana Sayfa - Teknik ERP'
   }
 }
 </script>

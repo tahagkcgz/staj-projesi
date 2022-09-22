@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    <TopBar></TopBar>
+    <NavBar></NavBar>
     <div class="page-header">
       <div class="container">
         <div class="row">
@@ -36,15 +38,19 @@
 </template>
 
 <script>
-import Footer from '../components/Footer-comp.vue'
-import EmployeeCard from '../components/Card-container.vue'
-import { getAPI } from '../axios-api'
+import NavBar from '../components/NavBar.vue'
+import TopBar from '../components/TopBar.vue'
+import Footer from '../components/FooterComp.vue'
+import EmployeeCard from '../components/CardContainer.vue'
 import { mapState } from 'vuex'
+import { getAPI } from '@/axios-api'
 export default {
-  name: 'TeamView',
+  name: 'team-view',
   components: {
     Footer,
-    EmployeeCard
+    EmployeeCard,
+    TopBar,
+    NavBar
   },
   data () {
     return {
@@ -60,7 +66,7 @@ export default {
       .catch(err => {
         console.log(err)
       })
-    document.title = 'Takımımız- Ata ERP'
+    document.title = 'Takımımız- Teknik ERP'
   }
 }
 </script>

@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    <TopBar></TopBar>
+    <NavBar></NavBar>
     <div class="contact wow fadeInUp">
       <div class="container">
         <div class="section-header text-center">
@@ -27,7 +29,7 @@
                   <input type="password" name="password2" id="pass2" v-model="credentials.password2" class="form-control"
                     placeholder="Şifre(tekrar)">
                 </div><br>
-                <div class="form-group">
+                <div class="form-group flex flex-center">
                   <button type="submit" class="btn" :disabled="!passwordEquality">Kayıt Ol</button>
                 </div>
               </form>
@@ -41,11 +43,15 @@
 </template>
 
 <script>
-import Footer from '../components/Footer-comp.vue'
+import NavBar from '../components/NavBar.vue'
+import TopBar from '../components/TopBar.vue'
+import Footer from '../components/FooterComp.vue'
 export default {
-  name: 'RegisterView',
+  name: 'register-view',
   components: {
-    Footer
+    Footer,
+    TopBar,
+    NavBar
   },
   data () {
     return {
@@ -61,7 +67,7 @@ export default {
     }
   },
   mounted () {
-    document.title = 'Kayıt Ol - Ata ERP'
+    document.title = 'Kayıt Ol - Teknik ERP'
   },
   methods: {
     register () {

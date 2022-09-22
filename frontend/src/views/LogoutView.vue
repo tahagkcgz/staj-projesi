@@ -5,6 +5,7 @@
 
 <script>
 export default {
+  name: 'logout-view',
   created () {
     this.$store.dispatch('userLogout')
       .then(() => {

@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  name: 'card-container',
   props: ['employee']
 }
 </script>

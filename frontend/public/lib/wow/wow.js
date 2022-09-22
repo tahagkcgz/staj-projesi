@@ -3,6 +3,7 @@
 * https://wowjs.uk
 * Copyright (c) 2016 Thomas Grainger; Licensed MIT
 */
+/* eslint-disable */
 
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {

@@ -1,5 +1,7 @@
 <template>
     <div class="wrapper">
+        <TopBar></TopBar>
+        <NavBar></NavBar>
         <div class="contact wow fadeInUp">
             <div class="container">
                 <div class="section-header text-center">
@@ -34,14 +36,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="contact-form">
-                            <div id="success"></div>
                             <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                                <div class="control-group">
+                                <div class="control-group" v-if="!token">
                                     <input type="text" class="form-control" id="name" placeholder="Adınız Soyadınız"
                                         required="required" data-validation-required-message="Lütfen Adınızı Girin" />
                                     <p class="help-block text-danger"></p>
                                 </div>
-                                <div class="control-group">
+                                <div class="control-group" v-if="!token">
                                     <input type="email" class="form-control" id="email" placeholder="Email Adresiniz"
                                         required="required"
                                         data-validation-required-message="Lütfen Emailinizi Girin" />
@@ -53,7 +54,10 @@
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="control-group">
-                                    <textarea class="form-control" id="message" placeholder="Mesajınız"
+                                    <textarea v-if="token" class="form-control" id="message" placeholder="Mesajınız"
+                                        required="required"
+                                        data-validation-required-message="Lütfen mesajınızı belirtin" style="height: 276px"></textarea>
+                                    <textarea v-if="!token" class="form-control" id="message" placeholder="Mesajınız"
                                         required="required"
                                         data-validation-required-message="Lütfen mesajınızı belirtin"></textarea>
                                     <p class="help-block text-danger"></p>
@@ -72,14 +76,29 @@
 </template>
 
 <script>
-import Footer from '../components/Footer-comp.vue'
+import NavBar from '../components/NavBar.vue'
+import TopBar from '../components/TopBar.vue'
+import Footer from '../components/FooterComp.vue'
+import { mapActions, mapGetters } from 'vuex'
 export default {
-  name: 'ContactView',
+  name: 'contact-view',
   components: {
-    Footer
+    Footer,
+    TopBar,
+    NavBar
+  },
+  data () {
+    return {
+      token: localStorage.getItem('token')
+    }
+  },
+  computed: mapGetters(['userData']),
+  methods: mapActions(['getUserData']),
+  created () {
+    this.getUserData().catch(() => {})
   },
   mounted () {
-    document.title = 'Bize Ulaşın - Ata ERP'
+    document.title = 'Bize Ulaşın - Teknik ERP'
   }
 }
 </script>

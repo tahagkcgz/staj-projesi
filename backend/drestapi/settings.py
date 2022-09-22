@@ -145,3 +145,5 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8080', 'http://192.168.1.105:8080']

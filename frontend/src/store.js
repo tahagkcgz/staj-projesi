@@ -3,27 +3,34 @@ import { getAPI } from './axios-api'
 
 export default new Vuex.Store({
   state: {
-    user: { username: '' },
+    user: { username: '', email: '', isAdmin: false },
     accessToken: JSON.parse(localStorage.getItem('token')),
-    refreshToken: null
+    refreshToken: JSON.parse(localStorage.getItem('refresh'))
   },
   mutations: {
     updateStorage (state, { access, refresh }) {
       state.accessToken = access
       state.refreshToken = refresh
       localStorage.setItem('token', JSON.stringify(access))
+      localStorage.setItem('refresh', JSON.stringify(refresh))
     },
     destroyToken (state) {
       state.accessToken = null
       state.refreshToken = null
       localStorage.removeItem('token')
+      localStorage.removeItem('refresh')
     },
     setUserData (state, userInfo) {
       state.user.username = userInfo.username
+      state.user.email = userInfo.email
+      state.user.isAdmin = userInfo.is_staff
     }
   },
   getters: {
     loggedIn (state) {
+      return state.accessToken != null
+    },
+    loggedInAsAdmin (state) {
       return state.accessToken != null
     },
     userData: (state) => state.user
